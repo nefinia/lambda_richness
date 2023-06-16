@@ -1,37 +1,50 @@
-# lambda_richness
+# Lambda Richness Estimator
 
-Lambda richness estimator
+The Lambda Richness Estimator is a Python implementation of a code for estimating the optical richness of galaxy clusters based on various input parameters. It provides a measure of the cluster's richness, which is a proxy for its mass and can be used to study galaxy cluster populations.
 
-minimal inputs:
-- redshift of the cluster
-- color (initially g-r)
-- color error
-- magnitude (initially i-band but in principle can change)
-- distance from the center of the cluster for each galaxy
-- background structure
+## Minimal Inputs
 
-minimal output:
--  the lambda optical richness of the cluster
+To run the Lambda Richness Estimator, the following minimal inputs are required:
 
+- Redshift of the cluster
+- Color (initially g-r)
+- Color error
+- Magnitude (initially i-band, but can be changed)
+- Distance from the center of the cluster for each galaxy
+- Background structure information
 
-Main diferences from the Rykoff+12 lambda richness code:
+## Minimal Output
 
-- Translated to python (instead of idl)
-- Update mstar estimation (updated to Rykoff+14)
-- Red sequence parameters are fitted for each cluster (slope, width, intercept). Therefore the color distribution (d_wt in the code) 
-  will depend on the current cluster, instead of a model which is a function of redshift (see eq. 32 of Rykoff+14)
-- Background is estimated from the galaxy catalog (in the webpage there was a matrix with values valid only for SDSS). 
-  The algorithm applies a cloud-in-cell technique for smoothing (background.py).
-- Extra cluster redshift estimator based on the probabilities of the galaxies to be part of the cluster (pwt in the code) and the spectral redshifts if available.
-- OPTIONAL: swisscheese.py will upgrade the background estimation by removing all galaxies inside a cluster (haven't really tested lately)
+The Lambda Richness Estimator provides the following minimal output:
 
-For a test on the code execute run_lambda.py
+- The lambda optical richness of the cluster
 
-The inputs (in folder input) are:
-- orca detection file: test_run.dat
-- galaxy catalog: cfhtls-w1_magcuts.fits
-- background matrix for each color set: bkg_gr.dat, bkg_ri.dat, bkg_iz.dat
+## Main Differences from the Rykoff+12 Lambda Richness Code
 
-The outputs are:
+Compared to the original Rykoff+12 lambda richness code, the Lambda Richness Estimator offers several improvements:
+
+1. Translated to Python from IDL for easier use and compatibility.
+2. Updated estimation of the stellar mass (mstar) based on Rykoff+14.
+3. Red sequence parameters (slope, width, intercept) are fitted for each cluster individually, resulting in a color distribution (d_wt in the code) specific to the current cluster, rather than a fixed model dependent on redshift (see eq. 32 of Rykoff+14).
+4. Background estimation is performed using the galaxy catalog itself, rather than relying on a pre-defined matrix specific to SDSS. The algorithm applies a cloud-in-cell technique for smoothing (background.py).
+5. An additional cluster redshift estimator is provided based on the probabilities of galaxies being part of the cluster (pwt in the code) and spectral redshifts if available.
+6. OPTIONAL: The swisscheese.py module can be used to improve the background estimation by removing all galaxies inside a cluster (please note that this feature hasn't been extensively tested).
+
+## Getting Started
+
+To run a test on the code, execute the run_lambda.py script. The input files required are located in the "input" folder, including:
+
+- Orca detection file: test_run.dat
+- Galaxy catalog: cfhtls-w1_magcuts.fits
+- Background matrix for each color set: bkg_gr.dat, bkg_ri.dat, bkg_iz.dat
+
+The outputs include:
+
 - A catalog of clusters with their lambda value and other properties
-- A catalog of galaxies with probability of being part of each cluster higher than 0.3
+- A catalog of galaxies with a probability of being part of each cluster higher than 0.3
+
+Feel free to explore and customize the code to suit your specific needs and datasets.
+
+## Contributors
+
+This Lambda Richness Estimator code was developed by Sofia G. Gallego and is based on the work of Rykoff et al. (2012) and Rykoff et al. (2014).
